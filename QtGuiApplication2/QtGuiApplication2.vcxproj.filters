@@ -67,14 +67,11 @@
     <ClCompile Include="GeneratedFiles\Release\moc_Pthread.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="winpcap.cpp">
+    <ClCompile Include="MutexQueue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_winpcap.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_winpcap.cpp">
-      <Filter>Generated Files\Release</Filter>
+    <ClCompile Include="PackData.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -90,28 +87,19 @@
     <CustomBuild Include="Pthread.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="winpcap.h">
+    <CustomBuild Include="http_util.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="untitled.ui">
-      <Filter>Form Files</Filter>
+    <CustomBuild Include="GeneratedFiles\ui_QtGuiApplication2.h">
+      <Filter>Generated Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="winpcap.ui">
-      <Filter>Form Files</Filter>
+    <CustomBuild Include="MutexQueue.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GeneratedFiles\ui_QtGuiApplication2.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="http_util.h">
+    <ClInclude Include="PackData.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_untitled.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_winpcap.h">
-      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -12,9 +12,9 @@
 #include <pcap.h>
 #include <stdio.h>
 #include <QMetaType>
-#include "ui_winpcap.h"
 #include <QQueue>
-
+#include "MutexQueue.h"
+#include "PackData.h"
 /* 链路层数据包格式 */
 typedef struct
 {
@@ -134,7 +134,7 @@ struct UdpHeader
 };
 
 
-///////////主界面显示的信息内容（子线程发送给主线程的消息）
+//////////主界面显示的信息内容（子线程发送给主线程的消息）
 struct  m_StrDispalayinfo
 {
 
@@ -146,10 +146,13 @@ struct  m_StrDispalayinfo
 	QString msStrPackLen;
 	QString msStrsPort;
 	QString msStrdPort;
-	const u_char* g_pPktdata;
+	const u_char * g_pPktdata;
+	QString info;
+	//~m_StrDispalayinfo() {
+	//	if(g_pPktdata != NULL)
+	//		delete g_pPktdata;
+	//}
 };
-
-class winpcap;
 
 /*　定义了QThread 的子类 PcapThread */
 class PcapThread:public QThread
@@ -162,24 +165,24 @@ signals:
 
 public:
 	PcapThread();
+	PcapThread(QQueue<m_StrDispalayinfo>* t);
 	void PcapThread::printTableInfo(m_StrDispalayinfo StrDisInfo,const u_char* pktData);
-
+	void setFinshi();
 public:
 	// 捕获数据包函数
 	void run();
-
 private slots:
 		void timerUpDate(); ///定时发送数据 刷新主界面，界面刷新太快会产生“未响应”
-
+		
 public:
 	void ParserPaHeaderIfo();///解包头信息
 	void ParserEthHeader(const u_char * p);//解以太网首部
 	void ParserIpHeader(const u_char * p);///解IP数据包首部
 	void parserTcpHeader(const u_char * p);////解TCP首部
-
+	void ParserARPHeader(const u_char * p);
 private:
-	QQueue<m_StrDispalayinfo> m_StrDisqueue_;///捕获数据队列
-
+	QQueue<m_StrDispalayinfo>* m_StrDisqueue_;///捕获数据队列
+	int flag;
 	/**包头用到的变量*//////
 	pcap_pkthdr* pHeader_;
 	const u_char * pPktdata_; //数据包
@@ -188,10 +191,10 @@ private:
 	time_t local_tv_sec_; //本机时间
 	char timestr_[16];
 	ETHHEADER *link_;  //链路层
-
 	m_StrDispalayinfo msStrPlay;//界面要显示的信息
 	char *g_pDevice;
 	pcap_t *g_phandle;
+	QString str;
 public:
 	char *SetDevice(char *Device);
 	char *GetDevice();
